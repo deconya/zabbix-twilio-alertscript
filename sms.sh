@@ -19,7 +19,8 @@ subject="$2"
 message="${subject}: $3"
 
 # Make a POST request to the twilio messaging service
-curl -X POST -F "Body=${message}" \
-    -F "From=${from}" -F "To={$to}" \
-    "https://api.twilio.com/2010-04-01/Accounts/${account_sid}/Messages" \
-    -u "${account_sid}:${auth_token}"
+curl "https://api.twilio.com/2010-04-01/Accounts/${account_sid}/Messages.json" -X POST \
+	--data-urlencode "To={$to}" \
+	--data-urlencode "From=${from}" \
+	--data-urlencode "Body=${message}" \
+	-u "${account_sid}:${auth_token}" 2>&1
